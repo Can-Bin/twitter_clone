@@ -11,7 +11,7 @@ const UserBox = () => {
                     <span>@canbin7</span>
                 </div>
             <div>
-                <HiOutlineDotsHorizontal className=""/>
+                <HiOutlineDotsHorizontal />
             </div>
 
         </div>
