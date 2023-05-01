@@ -48,7 +48,7 @@ const Sidebar = () => {
     setActive(text)
   }
   return (
-    <div className='flex flex-col items-center justify-between'>
+    <div className='flex flex-col items-center justify-start'>
       <div className='flex flex-col items-center'>
         <ul>
           {
@@ -59,9 +59,9 @@ const Sidebar = () => {
             ))
           }
         </ul>
-        <button className='rounded-full bg-primary-base text-white w-10/12 py-3 mt-4 hover:bg-primary-dark duration-200'>Tweet</button>
+        <button className='rounded-full bg-primary-base text-white text-xl font-bold w-10/12 py-3 mt-4 hover:bg-primary-dark duration-200'>Tweet</button>
       </div>
-      <div className='w-11/12 pl-3 py-2'>
+      <div className='w-11/12 pl-3 py-2 mt-24'>
         <UserBox/>
       </div>
     </div>
