@@ -2,7 +2,8 @@ import { useEffect, useState } from "react"
 import profilePic from "../images/profile.jpg"
 import {MediaIcon, GifIcon, PollIcon, EmojiIcon, ScheduleIcon, LocationIcon} from "../contentIcons"
 import db from "../firebase"
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, serverTimestamp, getDocs, orderBy} from "firebase/firestore";
+import FeedList from "../components/FeedList";
 
 const Content = () => {
     const [isClickedForYou, setIsClickedForYou] = useState(null)
@@ -26,11 +27,30 @@ const Content = () => {
             const docRef = addDoc(collection(db, "feed"), {
                 displayName: "Can BİN",
                 userName: "@canbin7",
-                time: "",
-                image: ""
+                content: content,
+                timestamp: serverTimestamp(),
+                image: profilePic
               });
+
+              setContent("")
         }
     }
+
+    const [tweets, setTweets] = useState([])
+
+    useEffect(() => {
+        const fetchTweets = async () => {
+            const list = []
+            const querySnapshot = await getDocs(collection(db, "feed"), orderBy("timestamp"));
+            querySnapshot.forEach((doc) => {
+                list.push(doc.data())
+                setTweets(list)
+                console.log(doc.data());
+            });
+        }
+        fetchTweets()
+    }, [])
+
 
     return(
         <div className='flex-1 flex flex-col border-x border-gray-extraLight mr-8'>
@@ -68,6 +88,7 @@ const Content = () => {
                     </div>
                 </div>
             </div>
+            <FeedList tweets={tweets} />
         </div>
     )
 }
